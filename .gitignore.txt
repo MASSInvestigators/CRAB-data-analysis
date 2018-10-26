@@ -1,2 +1,0 @@
-/heroku_contract_award.csv
-/heroku_general_contract.csv
