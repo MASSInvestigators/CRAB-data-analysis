@@ -1,0 +1,2042 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Untitled}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{re}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df\PYZus{}general} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heroku\PYZus{}general\PYZus{}contract.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df\PYZus{}award} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{heroku\PYZus{}contract\PYZus{}award.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{x} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}general}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{n}{df\PYZus{}award}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{General: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Award: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{y}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+General: 19714
+Award: 7060
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{df\PYZus{}general}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df\PYZus{}general}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df\PYZus{}general}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}                                                Agency  \textbackslash{}
+        1   Andover, Town ofCentral Purchasing Department3{\ldots}   
+        4   Billerica, Town ofTown Manager's Office365 Bos{\ldots}   
+        6   Boston, City ofParks and Recreation Department{\ldots}   
+        7   Boston, City ofParks and Recreation Department{\ldots}   
+        13  Cambridge, City of Purchasing Department795 Ma{\ldots}   
+        
+                        ContactEmail                          ContactName  \textbackslash{}
+        1     twatkins@andoverma.gov  Thomas P. Watkins, Purchasing Agent   
+        4   dmcsweeney@kvaboston.com                     Daniel McSweeney   
+        6                                             Cathy Baker-Eclipse   
+        7                                                 Allison Perlman   
+        13    ehatch@cambridgema.gov                         Amy L. Witts   
+        
+            ContactPhone                  CustomId  \textbackslash{}
+        1   978-623-8216  GC1/1/20161/10/201600001   
+        4   857-300-6325  GC1/1/20161/10/201600004   
+        6   617-961-3058  GC1/1/20161/10/201600006   
+        7   617-635-4505  GC1/1/20161/10/201600007   
+        13  617-349-4310  GC1/1/20161/10/201600013   
+        
+                                                      Project  ProjectNumber  \textbackslash{}
+        1   Andover West Middle School Auditorium Seating {\ldots}  020/01-16/185   
+        4   Construction Management at Risk (CMR) Request {\ldots}   201300310505   
+        6   Improvements to Marcella Playground, Roxbury: {\ldots}       CPR24010   
+        7   Improvements to Monsignor Reynolds Playground,{\ldots}       CPR22583   
+        13  Cemetery Roadway Reconstruction and Improvemen{\ldots}           7110   
+        
+                                       additional\_information  \textbackslash{}
+        1   Pre-bid Conference/Site Visit:  1/19/16 @ 10:0{\ldots}   
+        4       This project is being bid per M.G.L. c. 149A.   
+        6   Pre-bid Conference:  1/12/16 @ 10:00 A.M. in t{\ldots}   
+        7   Pre-bid Conference:  1/16/16 @ 10:00 A.M. in t{\ldots}   
+        13  Plan deposit is \$100 (refundable) per set in t{\ldots}   
+        
+           contractor\_qualification estimated\_cost general\_bid\_deadline  \textbackslash{}
+        1                                  \$45,000              1/29/16   
+        4          DCAM Certificate   \$141,000,000              1/29/16   
+        6                               \$1,800,000              1/21/16   
+        7                                 \$435,000              1/21/16   
+        13                                \$300,000              1/21/16   
+        
+           published\_date                           specifications\_available  \textbackslash{}
+        1        1/6/2016  Above agency address or online at www.andoverm{\ldots}   
+        4        1/6/2016  Above agency address, 1/7/16, 9:00 A.M. - 4:00{\ldots}   
+        6        1/6/2016       Above agency address, 1/4/16 after 9:00 A.M.   
+        7        1/6/2016       Above agency address, 1/4/16 after 9:00 A.M.   
+        13       1/6/2016  Above agency address, 1/7/16.  Office Hours:  {\ldots}   
+        
+           sub\_bid\_categories sub\_bid\_deadline  
+        1                                       
+        4                                       
+        6                                       
+        7                                       
+        13                                      
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{df\PYZus{}award}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df\PYZus{}award}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{n}{subset}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df\PYZus{}award}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}                                               Agency  \textbackslash{}
+        0  Bridgewater State UniversityProcurement Servic{\ldots}   
+        1  Gloucester, City of Purchasing Department9 Dal{\ldots}   
+        2  Lynn, City ofPurchasing Department3 City Hall {\ldots}   
+        3  Mental Health, Department of (DMH)Office of En{\ldots}   
+        4  Newton, City of 1000 Commonwealth Ave.Newton, {\ldots}   
+        
+                                                ContactEmail      ContactName  \textbackslash{}
+        0  Notify email address listed when final publish{\ldots}    Diane Chagnon   
+        1  Do not notify email address listed when final {\ldots}    Donna Compton   
+        2  Notify email address listed when final publish{\ldots}  Charles E White   
+        3  Notify email address listed when final publish{\ldots}     Sharon Moody   
+        4  Do not notify email address listed when final {\ldots}        Nick Read   
+        
+           ContactPhone                   CustomId        ProjectNumber  \textbackslash{}
+        0  508-531-2213  CAN1/1/20161/10/201600001  RFB No. 10 (FY16-2)   
+        1  978-281-9710  CAN1/1/20161/10/201600002                16072   
+        2  781-586-6893  CAN1/1/20161/10/201600003               03-214   
+        3  617-626-8025  CAN1/1/20161/10/201600004             FY16-011   
+        4  617-796-1220  CAN1/1/20161/10/201600005                16-22   
+        
+                 ProjectType additional\_information  \textbackslash{}
+        0  General Contract                           
+        1  General Contract                           
+        2  General Contract                           
+        3  General Contract                           
+        4  General Contract                           
+        
+                                           award\_description  \textbackslash{}
+        0  Automatic Door Maintenance and Repair:  All ne{\ldots}   
+        1  Refrigerator repairs as-needed for Gloucester {\ldots}   
+        2  Supply Alarm Installation Monitoring and Repai{\ldots}   
+        3  Repair of Fire Damper Deficiencies at the H.C{\ldots}   
+        4  Waban Hill Communications Tower Equipment Buil{\ldots}   
+        
+                                                  awarded\_to contract\_amount  \textbackslash{}
+        0  E.Z. Access Door Systems, Inc., P.O. Box 1081,{\ldots}      \$24,999.99   
+        1  Cooling \& Heating Specialists, Inc.151A Califo{\ldots}         \$17,100   
+        2  Instant Signal \& Alarm Co. Inc.303 Highland Av{\ldots}      \$27,294.20   
+        3         Unicon, Inc.9A Derby SquareSalem, MA 01970         \$82,500   
+        4  Paul J. Rogan Co., Inc.25 Hayward St.Braintree{\ldots}        \$721,000   
+        
+          published\_date sub\_contract\_award  
+        0       1/6/2016                     
+        1       1/6/2016                     
+        2       1/6/2016                     
+        3       1/6/2016                     
+        4       1/6/2016                     
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{intersect} \PY{o}{=} \PY{n}{df\PYZus{}general}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Agency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}award}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awarded\PYZus{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ProjectNumber}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{how}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{inner}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{intersect}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intersection.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{intersect}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}                                                  Agency  \textbackslash{}
+        0     University of Massachusetts - Amherst   ***SUB{\ldots}   
+        1     University of Massachusetts - AmherstProcureme{\ldots}   
+        2     Developmental Services, Department of (DDS)Eng{\ldots}   
+        3     Methuen, City ofHousing Authority24 Mystic St{\ldots}   
+        4     Wilbraham, Town ofHousing Authority88 Stony Hi{\ldots}   
+        5     Worcester, City ofHousing Authority81 Tacoma S{\ldots}   
+        6     Bourne, Town ofPublic Schools36 Sandwich Rd.Bo{\ldots}   
+        7     Everett, City of Purchasing Department484 Broa{\ldots}   
+        8     Chilmark, Town ofBoard of SelectmenP.O. Box 11{\ldots}   
+        9     Springfield Technical Community College (STCC){\ldots}   
+        10    Walpole, Town ofPurchasing Department135 Schoo{\ldots}   
+        11    Nahant, Town of Fire Department67 Flash Rd.Nah{\ldots}   
+        12    Massasoit Community CollegePurchasing officeAd{\ldots}   
+        13    Amesbury, City of Office of Community and Econ{\ldots}   
+        14    Randolph, Town of Department of Public Works41{\ldots}   
+        15    Randolph, Town of Department of Public Works41{\ldots}   
+        16    Templeton, Town of Senior Center Oversight Com{\ldots}   
+        17    Randolph, Town of Department of Public Works41{\ldots}   
+        18    Chilmark, Town of Board of SelectmenP.O. Box 1{\ldots}   
+        19    Nantucket, Town ofIslands Land Bank22 Broad St{\ldots}   
+        20    Lower Pioneer Valley Educational Corporation ({\ldots}   
+        21    Lower Pioneer Valley Educational Corporation ({\ldots}   
+        22    Westford, Town of Town Manager's Office 55 Mai{\ldots}   
+        23         Otis, Town of 1 North Main Rd.Otis, MA 01253   
+        24    Match Charter Public SchoolBusiness Office215 {\ldots}   
+        25    Wakefield, Town of Department of Public Works1{\ldots}   
+        26    Walpole, Town of Board of Selectmen135 School {\ldots}   
+        27    Montachusett Regional Vocational Technical Sch{\ldots}   
+        28    Boston, City ofBridge Boston Charter School2 M{\ldots}   
+        29    Stockbridge, Town ofHighway Department1 West S{\ldots}   
+        {\ldots}                                                 {\ldots}   
+        5583  Westfield, City of 59 Court St.Westfield, MA 0{\ldots}   
+        5584  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5585  Walpole, Town ofHousing Authority8 Diamond Pon{\ldots}   
+        5586  Andover, Town ofPurchasing Office36 Bartlet St{\ldots}   
+        5587  Bureau of State Office BuildingsOne Ashburton {\ldots}   
+        5588  Port Authority, Massachusetts Capital Programs{\ldots}   
+        5589  Port Authority, Massachusetts Capital Programs{\ldots}   
+        5590  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5591  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5592  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5593  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5594  Water Resources Authority, Massachusetts (MWRA{\ldots}   
+        5595  Bellingham, Town of School Department60 Harpin{\ldots}   
+        5596  Correction, Department of (DOC)50 Maple St.Mil{\ldots}   
+        5597  Norwell, Town ofSchool Committee/Public School{\ldots}   
+        5598  Pittsfield, City of Purchasing Office70 Allen {\ldots}   
+        5599  Pittsfield, City of Purchasing Office70 Allen {\ldots}   
+        5600  Pittsfield, City of Purchasing Office70 Allen {\ldots}   
+        5601  Pittsfield, City of Purchasing Office70 Allen {\ldots}   
+        5602  University of Massachusetts - DartmouthFoster {\ldots}   
+        5603  University of Massachusetts - DartmouthFoster {\ldots}   
+        5604  Boston, City ofPublic Facilities DepartmentBid{\ldots}   
+        5605  Mount Wachusett Community CollegeExecutive Off{\ldots}   
+        5606  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5607  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5608  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5609  Transportation, Department of (MassDOT)Highway{\ldots}   
+        5610  University of Massachusetts - DartmouthFoster {\ldots}   
+        5611  University of Massachusetts - DartmouthFoster {\ldots}   
+        5612  Water Resources Authority, Massachusetts (MWRA{\ldots}   
+        
+                      ProjectNumber                                         awarded\_to  
+        0                  UMA16-04  Forish Construction Co., Inc.21 Main Line Driv{\ldots}  
+        1                  UMA16-04  Forish Construction Co., Inc.21 Main Line Driv{\ldots}  
+        2                 DDS 16-13  Plan B Construction86 Blanding Ave.Barrington,{\ldots}  
+        3                    181092  Vanguard Construction Co., Inc465 Nashua Rd. \#{\ldots}  
+        4                    339065  Diversified Construction Services, LLC100 Univ{\ldots}  
+        5                   2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        6                   2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        7                   2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        8                   2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        9                   2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        10                  2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        11                  2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        12                  2015-02  Raymond R. Houle Construction, Inc.5 Miller St{\ldots}  
+        13                        5  Robert B. Our Co., Inc.24 Great Western Rd.Har{\ldots}  
+        14                        5  Robert B. Our Co., Inc.24 Great Western Rd.Har{\ldots}  
+        15                        5  Robert B. Our Co., Inc.24 Great Western Rd.Har{\ldots}  
+        16                        5  Robert B. Our Co., Inc.24 Great Western Rd.Har{\ldots}  
+        17                        5  Robert B. Our Co., Inc.24 Great Western Rd.Har{\ldots}  
+        18                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        19                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        20                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        21                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        22                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        23                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        24                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        25                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        26                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        27                  2016-02  Athletic Surfaces, Inc.91 Fayerweather St. Uni{\ldots}  
+        28                       01   W.T. Rich Co., Inc.29 Crafts St.Newton, MA 02458  
+        29                       01   W.T. Rich Co., Inc.29 Crafts St.Newton, MA 02458  
+        {\ldots}                     {\ldots}                                                {\ldots}  
+        5583                   2243               Jay MorP.O. Box 155Pelham, NH  03076  
+        5584                 605529  M.A.S. Building \& Bridge842 Upper Union St. Un{\ldots}  
+        5585   DHCD Project \#314022  Emond Plumbing \& Heating, Inc.104 Dean St.Taun{\ldots}  
+        5586  Bid No. 014/12-10/185  Tran Brothers Construction294 High St.Randolph{\ldots}  
+        5587      BSB-0901-FM2-2011  J.F. White Contracting Co.10 Burr St.Framingha{\ldots}  
+        5588               L451-C20      P.J. Spillane97 Tileston St.Everett  MA 02149  
+        5589               L451-C19     P.J. Spillane 97 Tileston St.Everett, MA 02149  
+        5590                 606003  M.I.G. Corp., Inc.One Acton Place Suite 200Act{\ldots}  
+        5591                 605465  Sealcoating, Inc.120 Industrial Park Rd.Hingha{\ldots}  
+        5592                 605467  M.I.G. Corp., Inc.One Acton Place Suite 200Act{\ldots}  
+        5593                 606292  N.E.L. Corp.3 Ajootian Way Building BMiddleton{\ldots}  
+        5594                 OP-129  Collins Overhead Door404 3rd St.Everett, MA  0{\ldots}  
+        5595               11-01.10      A. Custom Co.3 Handy Rd.Blackstone, MA  01504  
+        5596            DRM 2010-15  K.N.E. Corp.99 Airport Access Rd.Norwood, MA  {\ldots}  
+        5597    NPS-VSHVAC-01/11/11  Mercury Mechanical Services, Inc.855 Washingto{\ldots}  
+        5598                 11-027  Simplex Grinnell66 Myron St.West Springfield, {\ldots}  
+        5599                 11-026  Charles Cardillo Plumbing, Heating \& HVAC, Inc{\ldots}  
+        5600                 11-028  Douglas J. Wooliver \& Sons, Inc.130 Old Cheshi{\ldots}  
+        5601                 11-025  Northern Tree Service, Inc.1290 Park St.Palmer{\ldots}  
+        5602               DD11JP19  Ewing Electrical Co., Inc.3 North Rd.Deerfield{\ldots}  
+        5603               DD11JP19                Ewing3 North Rd.Deerfield, NH 03037  
+        5604                 6822-C    W.C.I. Corp.3313 Washington St.Boston, MA 02130  
+        5605            MWC-B110008  General Air Conditioning \& Heating, Inc.7 Gast{\ldots}  
+        5606                 604741  Lorusso Corp.Three Belcher St.Plainville, MA  {\ldots}  
+        5607                 606313  Visi-Flash Rentals Eastern, Inc.31 Pleasant St{\ldots}  
+        5608                 606263  Mayer Tree Service, Inc.P.O. Box 5179 Scot's W{\ldots}  
+        5609                 606215  Northern Tree Service, Inc.1290 Park St.Palmer{\ldots}  
+        5610               DD11JP20  Brite Lite Electrical Co., Inc.11 Front St. \#1{\ldots}  
+        5611               DD11JP20  Brite-Lite Electrical Co., Inc.11 Front St.Wey{\ldots}  
+        5612                 OP-147    Simplex Grinnell63 Nahant St.Norwood, MA  02062  
+        
+        [5613 rows x 3 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{sum}\PY{p}{(}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n+nb}{open}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intersection.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} 5614
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{Counter}
+        \PY{k+kn}{import} \PY{n+nn}{csv}
+        
+        \PY{n}{filename}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intersection.csv}\PY{l+s+s1}{\PYZsq{}}
+        \PY{k}{with} \PY{n+nb}{open}\PY{p}{(}\PY{n}{filename}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} \PY{k}{as} \PY{n}{f}\PY{p}{:}
+            \PY{n}{column} \PY{o}{=} \PY{p}{(}\PY{n}{row}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{k}{for} \PY{n}{row} \PY{o+ow}{in} \PY{n}{csv}\PY{o}{.}\PY{n}{reader}\PY{p}{(}\PY{n}{f}\PY{p}{)}\PY{p}{)}
+            \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Most frequent value: }\PY{l+s+si}{\PYZob{}0\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{Counter}\PY{p}{(}\PY{n}{column}\PY{p}{)}\PY{o}{.}\PY{n}{most\PYZus{}common}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Most frequent value: Hugo Key \& Son, Inc.51 America's Cup Ave.Newport, RI 02840
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{n}{res\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{intersection.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{encoding}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ISO\PYZhy{}8859\PYZhy{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{new\PYZus{}df} \PY{o}{=} \PY{n}{res\PYZus{}df}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awarded\PYZus{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Agency}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{agg}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{new\PYZus{}df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{idxmax}\PY{p}{(}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} count    30
+         Name: Hugo Key \& Son, Inc.51 America's Cup Ave.Newport, RI 02840, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{my\PYZus{}count} \PY{o}{=} \PY{n}{new\PYZus{}df}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{p}{[}\PY{k+kc}{False}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}my\PYZus{}count}
+         
+         \PY{n}{my\PYZus{}count}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awarded\PYZus{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{my\PYZus{}count}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awarded\PYZus{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{n}{x}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{15}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sum\PYZus{}count} \PY{o}{=} \PY{n}{my\PYZus{}count}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{awarded\PYZus{}to}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{sum\PYZus{}count} \PY{o}{=} \PY{n}{sum\PYZus{}count}\PY{o}{.}\PY{n}{sort\PYZus{}values}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{ascending}\PY{o}{=}\PY{p}{[}\PY{k+kc}{False}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{index}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{sum\PYZus{}count}
+         \PY{c+c1}{\PYZsh{} sum(sum\PYZus{}count[\PYZsq{}count\PYZsq{}].tolist())}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}            awarded\_to  count
+         0     N.E.L. Corp.3 A     44
+         1     Kurtz, Inc.810      41
+         2     Longfin, LLCd/b     39
+         3     Dagle Electrica     37
+         4     S.P.S. New Engl     35
+         5     Winston Builder     35
+         6     Aggregate Indus     32
+         7     Worldwide Indus     32
+         8     J.H. Maxymillia     32
+         9     Hugo Key \& Son,     31
+         10    J.F. White Cont     31
+         11    John Kelly Cons     30
+         12    Evergreen Const     30
+         13    Meadows Constru     30
+         14    Sealcoating, In     30
+         15    J.H. Lynch \& So     29
+         16    Hi-Way Safety S     28
+         17    Vareika Constru     27
+         18    Northern Contra     26
+         19    Dankris Builder     26
+         20    D.D.C. Construc     26
+         21    Newport Constru     26
+         22    Lockheed Window     26
+         23    Denis L. Maher      24
+         24    Fall River Elec     24
+         25    Maher Services,     24
+         26    New England Pip     24
+         27    Enterprise Equi     24
+         28    Five Star Build     23
+         29    R.D.K. Engineer     23
+         {\ldots}               {\ldots}    {\ldots}
+         1320  P.K. Painting \&      1
+         1321  P.K.M. Contract      1
+         1322  E-Floors1200 Ea      1
+         1323  P.O. Roofing Co      1
+         1324  P.O. Roofing, L      1
+         1325  Page Constructi      1
+         1326  DâAllessandro      1
+         1327  Pantermehl Land      1
+         1328  Panther Industr      1
+         1329  Pasek Corp. 9 W      1
+         1330  Dowling Corp.71      1
+         1331  E. Flooring, In      1
+         1332  E.H. Perkins560      1
+         1333  P.J. Albert199       1
+         1334  Eagle Elevator       1
+         1335  Onyx Corp.18 We      1
+         1336  Onyx Corporatio      1
+         1337  Earth Solutions      1
+         1338  Otis Elevator C      1
+         1339  Otis Elevator61      1
+         1340  P. A. Landers,       1
+         1341  P. Giosio \& Son      1
+         1342  E.J. Paving101       1
+         1343  P. J. Albert, I      1
+         1344  E.Z. Landscapin      1
+         1345  P.A. Landers 35      1
+         1346  E.Z. Access Doo      1
+         1347  E.N.E. Systems,      1
+         1348  E.J. Prescott32      1
+         1349  KOBO Utility Co      1
+         
+         [1350 rows x 2 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Difference of `intersection` and `general` dataframes}
+         \PY{n}{df\PYZus{}diff\PYZus{}general} \PY{o}{=} \PY{n}{df\PYZus{}general}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{df\PYZus{}general}\PY{o}{.}\PY{n}{ProjectNumber}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{res\PYZus{}df}\PY{o}{.}\PY{n}{ProjectNumber}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{]}
+         \PY{n}{df\PYZus{}diff\PYZus{}general}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{difference\PYZus{}general.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{df\PYZus{}diff\PYZus{}general}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:}                                                   Agency  \textbackslash{}
+         1      Andover, Town ofCentral Purchasing Department3{\ldots}   
+         4      Billerica, Town ofTown Manager's Office365 Bos{\ldots}   
+         6      Boston, City ofParks and Recreation Department{\ldots}   
+         7      Boston, City ofParks and Recreation Department{\ldots}   
+         13     Cambridge, City of Purchasing Department795 Ma{\ldots}   
+         14     Cambridge, City of Purchasing Department795 Ma{\ldots}   
+         15     Cambridge, City of Purchasing Department795 Ma{\ldots}   
+         16     Convention Center Authority, Massachusetts (MC{\ldots}   
+         17     Dartmouth, Town of Board of Public Works759 Ru{\ldots}   
+         19        Everett, City of 484 BroadwayEverett, MA 02149   
+         20     Hanson, Town of Water Department1073 West Wash{\ldots}   
+         24     Lexington, Town of 201 Bedford St.Lexington, M{\ldots}   
+         25     Manchester-by-the-Sea, Town ofHousing Authorit{\ldots}   
+         29     Martha's Vineyard Airport Commission71 Airport{\ldots}   
+         31     Medford, City ofPurchasing Office85 George P. {\ldots}   
+         32     Montachusett Regional Vocational Technical Sch{\ldots}   
+         33     Nantucket, Town of 16 Broad St.Nantucket, MA 0{\ldots}   
+         34     Needham, Town of 500 Dedham Ave.Needham, MA 02492   
+         37     Pembroke, Town of 100 Center St.Pembroke, MA 0{\ldots}   
+         38     Pioneer Valley Transit Authority (PVTA)Office {\ldots}   
+         39     Plymouth, Town of      ***RE-BID***Procurement{\ldots}   
+         40     Public Health, Department of (DPH) Lemuel Shat{\ldots}   
+         41     Somerville, City of Purchasing Department93 Hi{\ldots}   
+         42     Somerville, City of            ***RE-BID***Pur{\ldots}   
+         43     University of Massachusetts - AmherstProcureme{\ldots}   
+         44     University of Massachusetts - AmherstProcureme{\ldots}   
+         46     University of Massachusetts - Lowell600 Suffol{\ldots}   
+         47     Wenham, Town ofHousing AuthorityLarch LaneWenh{\ldots}   
+         49     Wilmington, Town of 121 Glen Rd.Wilmington, MA{\ldots}   
+         50     Worcester, City ofHousing Authority81 Tacoma S{\ldots}   
+         {\ldots}                                                  {\ldots}   
+         34269  Needham, Town of Department of Public Faciliti{\ldots}   
+         34270  New Bedford, City of Public Schools Office of {\ldots}   
+         34278  Quinsigamond Community CollegeOffice of Facili{\ldots}   
+         34279  Salem, City of Purchasing Department120 Washin{\ldots}   
+         34280  Soldiers' Home in MassachusettsOperations Offi{\ldots}   
+         34281  Somerville, City of Purchasing Department93 Hi{\ldots}   
+         34283  University of Massachusetts Medical School55 L{\ldots}   
+         34287  Wendell, Town of Selectboard/Town Coordinator9{\ldots}   
+         34288   Westwood, Town of 580 High St.Westwood, MA 02090   
+         34290  Worcester, City of Purchasing Division455 Main{\ldots}   
+         34291  Worcester, City of Purchasing Division455 Main{\ldots}   
+         34295  Boston, City ofPublic Health Commission/Proper{\ldots}   
+         34299  Capital Asset Management, Division of (DCAM)  {\ldots}   
+         34300  Capital Asset Management, Division of (DCAM)  {\ldots}   
+         34301  Chelsea, City of 500 Broadway Room 206Chelsea,{\ldots}   
+         34302  Conservation and Recreation, Department of (DC{\ldots}   
+         34303  Dennis, Town of 485 Main St.South Dennis, MA  {\ldots}   
+         34304  Framingham, Town of Department of Public Works{\ldots}   
+         34305  Gloucester, City ofHousing AuthorityP.O. Box 1{\ldots}   
+         34307  Lexington, Town ofPurchasing Office1625 Massac{\ldots}   
+         34308  Longmeadow, Town ofOffice of the Purchasing Co{\ldots}   
+         34309   Lowell, City of375 Merrimack St.Lowell, MA 01852   
+         34313  Mount Wachusett Community CollegeExecutive Off{\ldots}   
+         34316  Northampton, City ofOffice of Planning and Dev{\ldots}   
+         34317  Northbridge, Town of Department of Public Work{\ldots}   
+         34319  Saugus, Town ofPurchasing Department298 Centra{\ldots}   
+         34321  Springfield, City of         ***RE-BID***Offic{\ldots}   
+         34327  Walpole, Town of Purchasing Office135 School S{\ldots}   
+         34329  Westwood, Town of           ***REVISED***580 H{\ldots}   
+         34331  Worcester, City of Purchasing Division455 Main{\ldots}   
+         
+                                            ContactEmail  \textbackslash{}
+         1                        twatkins@andoverma.gov   
+         4                      dmcsweeney@kvaboston.com   
+         6                                                 
+         7                                                 
+         13                       ehatch@cambridgema.gov   
+         14                       ehatch@cambridgema.gov   
+         15                       ehatch@cambridgema.gov   
+         16                    truane@massconvention.com   
+         17              mrmendonca@town.dartmouth.ma.us   
+         19                        bids@ci.everett.ma.us   
+         20     dbn@envpartners.com; sco@envpartners.com   
+         24                     sdemango@lexingtonma.gov   
+         25                         irenef.mha@gmail.com   
+         29                        kelias@mvyairport.com   
+         31                          lmiller@medford.org   
+         32                         lajoie@montytech.net   
+         33                       jlemieux@vertexeng.com   
+         34                       csimchak@needhamma.gov   
+         37                          dbn@envpartners.com   
+         38                              brosas@pvta.com   
+         39          procurement@townhall.plymouth.ma.us   
+         40          Richard.Peters@MassMail.State.MA.US   
+         41                     anosnik@somervillema.gov   
+         42                     anosnik@somervillema.gov   
+         43                  procurement@admin.umass.edu   
+         44                  procurement@admin.umass.edu   
+         46                           purchasing@uml.edu   
+         47                                                
+         49                wmartiniello@wilmingtonma.gov   
+         50               hennessy@worcester-housing.com   
+         {\ldots}                                         {\ldots}   
+         34269                     clustig@needhamma.gov   
+         34270             jfigueiredo@mvgarchitects.com   
+         34278                             pwest@qcc.edu   
+         34279                        twatkins@salem.com   
+         34280      robert.maniatis@massmail.state.ma.us   
+         34281                  amallen@somervillema.gov   
+         34283                daniel.richie@umassmed.edu   
+         34287                     towncoord@crocker.com   
+         34288                           jays@deztek.com   
+         34290               gagliastroc@worcesterma.gov   
+         34291                      bids@worcesterma.gov   
+         34295                           broman@bphc.org   
+         34299                                             
+         34300                                             
+         34301                     rbishop@chelseama.gov   
+         34302                   max.santana@state.ma.us   
+         34303                tandrade@town.dennis.ma.us   
+         34304                      alp@framinghamma.gov   
+         34305                        dhoulden@ghama.com   
+         34307                  mvalente@lexingtonma.gov   
+         34308                  cthompson@longmeadow.org   
+         34309                     pmvaughn@lowellma.gov   
+         34313                    p\_dakota@mwcc.mass.edu   
+         34316                 wfeiden@northamptonma.gov   
+         34317           rsasseville@northbridgemass.org   
+         34319                      SAFulchino@gmail.com   
+         34321     hgates-bryant@springfieldcityhall.com   
+         34327                         davida@wseinc.com   
+         34329                           jays@deztek.com   
+         34331                      bids@worcesterma.gov   
+         
+                                                      ContactName  \textbackslash{}
+         1                    Thomas P. Watkins, Purchasing Agent   
+         4                                       Daniel McSweeney   
+         6                                    Cathy Baker-Eclipse   
+         7                                        Allison Perlman   
+         13                                          Amy L. Witts   
+         14                                          Amy L. Witts   
+         15                                          Amy L. Witts   
+         16                                         Theresa Ruane   
+         17                  Rosa Mendonca, Contract Bidding Aide   
+         19                                           Chad Luongo   
+         20                                        Deborah Nestel   
+         24                                        Sergio DeMango   
+         25                                       Irene Frontiero   
+         29                                             Kim Elias   
+         31                                         Louise Miller   
+         32                                        Tammy Crockett   
+         33                                           Jon Lemieux   
+         34                                       Cecilia Simchak   
+         37                                        Deborah Nestel   
+         38                                         Barbara Rosas   
+         39                 Pamela D. Hagler, Procurement Officer   
+         40                                        Richard Peters   
+         41                                           Alex Nosnik   
+         42                                           Alex Nosnik   
+         43                                           Peter Royer   
+         44                                           Peter Royer   
+         46                                  Heather Tziotziouras   
+         47                                        Paula Mountain   
+         49                                     Wendy Martiniello   
+         50                                         John Hennessy   
+         {\ldots}                                                  {\ldots}   
+         34269                                       Carys Lustig   
+         34270                                   Jorge Figueiredo   
+         34278  Donald Hall, Direcor of Facilities; Penny West{\ldots}   
+         34279                Thomas P. Watkins, Purchasing Agent   
+         34280               Robert Maniatis, Life Safety Officer   
+         34281                                       Angela Allen   
+         34283                                      Daniel Richie   
+         34287                                      Nancy Aldrich   
+         34288                                       Jay Stanbury   
+         34290                                   Chris Gagliastro   
+         34291                                        John Orrell   
+         34295                                    Belkis L. Roman   
+         34299                                      DCAM Bid Room   
+         34300                                      DCAM Bid Room   
+         34301                                   Robert H. Bishop   
+         34302  Max Santana for plans \& Specs/Darryl Forgione {\ldots}   
+         34303                                     Thomas Andrade   
+         34304                                      Amy L. Putney   
+         34305                                      David Houlden   
+         34307                                       Mark Valente   
+         34308                 Chad Thompson, Procurement Manager   
+         34309                                  P. Michael Vaughn   
+         34313                                    Patricia Dakota   
+         34316                                Wayne Feiden, FAICP   
+         34317                              Richard R. Sasseville   
+         34319                                   Sal Fulchino, PE   
+         34321                                 Helen Gates-Bryant   
+         34327                                  Purchasing Office   
+         34329                                       Jay Stanbury   
+         34331                                        John Orrell   
+         
+                          ContactPhone                     CustomId  \textbackslash{}
+         1                978-623-8216     GC1/1/20161/10/201600001   
+         4                857-300-6325     GC1/1/20161/10/201600004   
+         6                617-961-3058     GC1/1/20161/10/201600006   
+         7                617-635-4505     GC1/1/20161/10/201600007   
+         13               617-349-4310     GC1/1/20161/10/201600013   
+         14               617-349-4310     GC1/1/20161/10/201600014   
+         15               617-349-4310     GC1/1/20161/10/201600015   
+         16               617-954-2000     GC1/1/20161/10/201600016   
+         17      508-999-0740 ext. 207     GC1/1/20161/10/201600017   
+         19               617-394-2290     GC1/1/20161/10/201600019   
+         20               617-657-0200     GC1/1/20161/10/201600020   
+         24               781-274-8970     GC1/1/20161/10/201600024   
+         25               978-526-1850     GC1/1/20161/10/201600025   
+         29               508-693-7022     GC1/1/20161/10/201600029   
+         31               781-393-2464     GC1/1/20161/10/201600031   
+         32               978-345-9200     GC1/1/20161/10/201600032   
+         33               781-952-6000     GC1/1/20161/10/201600033   
+         34               781-455-7550     GC1/1/20161/10/201600034   
+         37               617-657-0200     GC1/1/20161/10/201600037   
+         38               413-732-6248     GC1/1/20161/10/201600038   
+         39      508-747-1620 ext. 210     GC1/1/20161/10/201600039   
+         40               617-971-3660     GC1/1/20161/10/201600040   
+         41     617-625-6600 ext. 3400     GC1/1/20161/10/201600041   
+         42     617-625-6600 ext. 3400     GC1/1/20161/10/201600042   
+         43               413-545-0361     GC1/1/20161/10/201600043   
+         44               413-545-0361     GC1/1/20161/10/201600044   
+         46               978-934-3500     GC1/1/20161/10/201600046   
+         47               978-468-1532     GC1/1/20161/10/201600047   
+         49               978-658-3311     GC1/1/20161/10/201600049   
+         50               508-635-3232     GC1/1/20161/10/201600050   
+         {\ldots}                       {\ldots}                          {\ldots}   
+         34269            781-455-0442  GC12/21/201012/31/201000026   
+         34270            508-991-7500  GC12/21/201012/31/201000027   
+         34278            508-854-4515  GC12/21/201012/31/201000035   
+         34279            978-619-5696  GC12/21/201012/31/201000036   
+         34280            617-887-7170  GC12/21/201012/31/201000037   
+         34281  617-625-6600 ext. 3410  GC12/21/201012/31/201000038   
+         34283            508-856-6738  GC12/21/201012/31/201000040   
+         34287            978-544-3395  GC12/21/201012/31/201000044   
+         34288            978-462-2094  GC12/21/201012/31/201000045   
+         34290                          GC12/21/201012/31/201000047   
+         34291                          GC12/21/201012/31/201000048   
+         34295            617-534-2500  GC12/21/201012/31/201000052   
+         34299            617-727-4003  GC12/21/201012/31/201000056   
+         34300            617-727-4003  GC12/21/201012/31/201000057   
+         34301            617-466-4224  GC12/21/201012/31/201000058   
+         34302            617-626-1391  GC12/21/201012/31/201000059   
+         34303            508-760-6166  GC12/21/201012/31/201000060   
+         34304            508-532-6040  GC12/21/201012/31/201000061   
+         34305            978-281-4770  GC12/21/201012/31/201000062   
+         34307            781-274-8357  GC12/21/201012/31/201000064   
+         34308            413-565-4136  GC12/21/201012/31/201000065   
+         34309            978-970-4110  GC12/21/201012/31/201000066   
+         34313            978-630-9103  GC12/21/201012/31/201000070   
+         34316            413-587-1265  GC12/21/201012/31/201000073   
+         34317            508-234-3581  GC12/21/201012/31/201000074   
+         34319            617-840-7067  GC12/21/201012/31/201000076   
+         34321            413-787-6284  GC12/21/201012/31/201000078   
+         34327            508-660-7290  GC12/21/201012/31/201000084   
+         34329            978-462-2094  GC12/21/201012/31/201000086   
+         34331                          GC12/21/201012/31/201000088   
+         
+                                                          Project  \textbackslash{}
+         1      Andover West Middle School Auditorium Seating {\ldots}   
+         4      Construction Management at Risk (CMR) Request {\ldots}   
+         6      Improvements to Marcella Playground, Roxbury: {\ldots}   
+         7      Improvements to Monsignor Reynolds Playground,{\ldots}   
+         13     Cemetery Roadway Reconstruction and Improvemen{\ldots}   
+         14        Masonry Repairs for City and School Buildings.   
+         15     War Memorial Field House Divider Curtain Remov{\ldots}   
+         16     Boston Convention and Exhibition Center Exteri{\ldots}   
+         17     Design and Construction of the Expansion to a {\ldots}   
+         19     Replacement and/or construction of concrete si{\ldots}   
+         20     2016, Phase I Water Main Improvements and Appu{\ldots}   
+         24     Remove and replace old Camera Systems with new{\ldots}   
+         25     New Executive Office at the Plains Development{\ldots}   
+         29     Martha's Vineyard Airport Terminal and General{\ldots}   
+         31     Building of Indoor Batting Cages in the Upper {\ldots}   
+         32     Installation of new bleachers in the gymnasium{\ldots}   
+         33     Contractor and Subcontractor Pre-qualification{\ldots}   
+         34                                     RTS Roof Repairs.   
+         37     2016 Well Rehabilitation:  Work includes clean{\ldots}   
+         38     New PVTA Westfield Transit Pavilion at 10 Arno{\ldots}   
+         39            Replacement of a wharf in Plymouth Harbor.   
+         40       Replace the Condensate Tank in the Power Plant.   
+         41                           Cedar St. Sewer Separation.   
+         42     Union Square transportation and utility improv{\ldots}   
+         43     Goessmann 1st and 2nd Floor Connector Renovati{\ldots}   
+         44     John Adams Emergency Systems Electrical Servic{\ldots}   
+         46     Abatement of ACM to facilitate the installatio{\ldots}   
+         47                            Replacement of Rear Doors.   
+         49     Construction of an outdoor recreational facili{\ldots}   
+         50     Phase 2 Concrete Coating project consists of, {\ldots}   
+         {\ldots}                                                  {\ldots}   
+         34269  The Town of Needham invites sealed bids for Te{\ldots}   
+         34270  Andre McCoy Field House Project, New Bedford: {\ldots}   
+         34278  Window replacement at selected openings in the{\ldots}   
+         34279  Phase I sitework to include seawall constructi{\ldots}   
+         34280  Sealed bids for the provision of Interior Part{\ldots}   
+         34281  MaxPac Access Improvements Project:  Construct{\ldots}   
+         34283  Provide all routine maintenance, repairs and t{\ldots}   
+         34287  Replace two furnaces in Highway Garage/Fire St{\ldots}   
+         34288  Westwood Public Library, 660 High St., Westwoo{\ldots}   
+         34290  SCADA Upgrades, Wastewater Systems for DPW and{\ldots}   
+         34291  Window Installations for WFD:  Replacement of {\ldots}   
+         34295  Renovation of 723, 725 and 727 Massachusetts A{\ldots}   
+         34299  Request for Qualifications for Construction Ma{\ldots}   
+         34300  Request for Qualifications for Trade Contracto{\ldots}   
+         34301  Highland Park Field Improvements, 31 Willow St{\ldots}   
+         34302  The project consists of Construction of a modu{\ldots}   
+         34303     Pier Replacement at Aunt Julia Anne's Landing.   
+         34304  The Town of Framingham Department of Public Wo{\ldots}   
+         34305  Interior painting of approximately 60 vacant a{\ldots}   
+         34307  Remove and replace existing lamps, pedestrian {\ldots}   
+         34308  IFB for Accessible Toilet Room Alterations at {\ldots}   
+         34309  The City is seeking bids from qualified vendor{\ldots}   
+         34313                            Replace Pool HVAC Unit.   
+         34316  Installation, removal, storage and maintenance{\ldots}   
+         34317      Inspection and monitoring of sludge landfill.   
+         34319  The Town of Saugus is in need of modifications{\ldots}   
+         34321  Tenant build-out of medical/dental clinic at 1{\ldots}   
+         34327  Phase 3 Rehabilitation of E.J. Delaney Water T{\ldots}   
+         34329  Westwood Public Library, 660 High St., Westwoo{\ldots}   
+         34331  Dunkirk Ave. and Mower St. Areas Sewer System {\ldots}   
+         
+                                ProjectNumber  \textbackslash{}
+         1                      020/01-16/185   
+         4                       201300310505   
+         6                           CPR24010   
+         7                           CPR22583   
+         13                              7110   
+         14                              7109   
+         15                              7111   
+         16                               J76   
+         17                         16-DPW-01   
+         19                          160121-1   
+         20                          160-1501   
+         24                             16-53   
+         25                      DHCD \#166037   
+         29                       MVY-2015-05   
+         31                           16-0043   
+         32                           2016-05   
+         33                            2016-1   
+         34                         16PFO151B   
+         37                            2016-1   
+         38                       IFB \#15-012   
+         39                             21601   
+         40                    DPH 821716-601   
+         41                         IFB 16-48   
+         42                        IFB 15-105   
+         43                          UMA15-37   
+         44                          UMA16-15   
+         46                      CL16-HT-0046   
+         47               DHCD Project 327038   
+         49                      978-658-3311   
+         50                           2015-05   
+         {\ldots}                              {\ldots}   
+         34269                    11PFO-470BX   
+         34270                          20005   
+         34278                         1717-2   
+         34279                           M-19   
+         34280                   CHE NN 11-20   
+         34281                     IFB \#11-38   
+         34283                      JP011-003   
+         34287                  SB 2010 HWYFS   
+         34288                          29010   
+         34290                        5361-W0   
+         34291                        5359-J0   
+         34295                      NS-140-11   
+         34299  UMA0801DC1 (2nd Solicitation)   
+         34300       UML0802DC1 (2nd Request)   
+         34301                       2011-100   
+         34302               DCR P08-0007-C1A   
+         34303                      E-2011-01   
+         34304                         PW-188   
+         34305      2011 Vacant Unit Painting   
+         34307                         \#11-25   
+         34308                      TOL-4-003   
+         34309                      IFB 11-23   
+         34313                    MWC-B110007   
+         34316      2011-2013 Channel Markers   
+         34317                         11-006   
+         34319           Saugus Project 34-10   
+         34321                         11-240   
+         34327               Contract 2011-14   
+         34329                          29010   
+         34331                        5317-J0   
+         
+                                           additional\_information  \textbackslash{}
+         1      Pre-bid Conference/Site Visit:  1/19/16 @ 10:0{\ldots}   
+         4          This project is being bid per M.G.L. c. 149A.   
+         6      Pre-bid Conference:  1/12/16 @ 10:00 A.M. in t{\ldots}   
+         7      Pre-bid Conference:  1/16/16 @ 10:00 A.M. in t{\ldots}   
+         13     Plan deposit is \$100 (refundable) per set in t{\ldots}   
+         14     Plan deposit is \$25 (refundable) per set in th{\ldots}   
+         15     Plan deposit is \$25 (refundable) per set in th{\ldots}   
+         16     Pre-bid Conference:  1/14/16 @ 10:00 A.M. at t{\ldots}   
+         17     Pre-bid Meeting:  1/19/16 @ 10:00 A.M.  Plan d{\ldots}   
+         19                                                         
+         20     Plan deposit is \$50 (refundable), payable to E{\ldots}   
+         24     Plans/specs will not be available for pick-up {\ldots}   
+         25     For assistance call ProjectDog at 978-499-9014{\ldots}   
+         29     Mandatory Pre-bid Conference:  1/21/16 @ 10:00{\ldots}   
+         31     Bids must be accompanied by a bid deposit of n{\ldots}   
+         32     A Walk-through is available by appointment by {\ldots}   
+         33     Responses must be mailed or hand-delivered to {\ldots}   
+         34     Mandatory Pre-bid Meeting:  1/19/16 @ 1:00 P.M{\ldots}   
+         37     Plan deposit is \$50 (refundable), payable to E{\ldots}   
+         38     Pre-bid Conference/Walk-through:  1/19/16 @ 10{\ldots}   
+         39     Plan deposit is \$100 (refundable).  Mailing fe{\ldots}   
+         40     Walk-through/Site Visit:  1/13/16 @ 10:00 A.M{\ldots}   
+         41     A 5\% bid deposit is required.  Prevailing Wage{\ldots}   
+         42     A 5\% bid deposit is required.  Prevailing Wage{\ldots}   
+         43     Pre-bid Meeting:  1/13/16 @ 10:00 A.M. in Room{\ldots}   
+         44     Pre-bid Meeting:  1/20/16 @ 10:00 A.M. in the {\ldots}   
+         46     Walk-through:  1/13/16 @ 10:00 A.M. on the 1st{\ldots}   
+         47     Pre-bid Site Visit:  1/11/16 @ 11:00 A.M.  Onl{\ldots}   
+         49     Voluntary Pre-bid Conference:  1/20/16 @ 10:00{\ldots}   
+         50     Pre-bid Conference/Site Visit:  1/13/16 @ 2:00{\ldots}   
+         {\ldots}                                                  {\ldots}   
+         34269  Mandatory pre-bid conference:  12/30/10 at 10:{\ldots}   
+         34270  Pre-bid conference:  1/17/11 at 1:00 P.M. at t{\ldots}   
+         34278  The date of substantial completion will be 6/3{\ldots}   
+         34279  Pre-Bid meeting:  1/4/11 at 2:00 P.M. in the 3{\ldots}   
+         34280  Mandatory walk-through:  12/29/10 at 10:00 A.M{\ldots}   
+         34281  Prevailing Wage Rates apply.  5\% bid bond requ{\ldots}   
+         34283  Pre-bidders conference:  1/6/11 at 9:00 A.M. a{\ldots}   
+         34287  Walk-through:  12/30/10 at 10:00 A.M.  Call to{\ldots}   
+         34288  Interested bidders may visit the site on 1/6/1{\ldots}   
+         34290                                                      
+         34291                                                      
+         34295  Site visit:  1/5/11 at 10:00 A.M. at 725 Massa{\ldots}   
+         34299  This is a Construction Management at Risk proj{\ldots}   
+         34300  This is a Construction Management at Risk proj{\ldots}   
+         34301  Pre-Bid:  1/6/11 at 1:00 P.M. at the site.  Fe{\ldots}   
+         34302  Pre-bidding conference:  1/5/11 at 10:00 A.M. {\ldots}   
+         34303  Pre-Bid:  1/13/11 at 11:30 A.M.  \$25.00 non-re{\ldots}   
+         34304  Non-mandatory site visit:  1/7/11 at 10:00 A.M{\ldots}   
+         34305  Site walk-through:  1/5/10 at 11:00 A.M.  No c{\ldots}   
+         34307                                                      
+         34308  Mandatory pre-bid conference:  1/12/11 at 10:3{\ldots}   
+         34309                                                      
+         34313  Mandatory Pre-bid Meeting:  1/14/11 at 10:00 A{\ldots}   
+         34316                                                      
+         34317                  Basic year with two option years.   
+         34319  Pre-Bid Conference:  1/3/11 at 2:30 P.M. at th{\ldots}   
+         34321                                                      
+         34327  \$50.00 refundable deposit and \$25.00 nonrefund{\ldots}   
+         34329  Interested bidders may visit the site on 1/6/1{\ldots}   
+         34331  \$50 non-refundable mailing fee for specs if re{\ldots}   
+         
+               contractor\_qualification  estimated\_cost general\_bid\_deadline  \textbackslash{}
+         1                                      \$45,000              1/29/16   
+         4             DCAM Certificate    \$141,000,000              1/29/16   
+         6                                   \$1,800,000              1/21/16   
+         7                                     \$435,000              1/21/16   
+         13                                    \$300,000              1/21/16   
+         14                                NTE \$100,000              1/21/16   
+         15                                     \$35,000              1/28/16   
+         16            DCAM Certificate      \$1,800,000              1/29/16   
+         17            DCAM Certificate    \$2.5 Million              2/18/16   
+         19                                     \$35,000              1/21/16   
+         20                                  \$1,100,000              1/27/16   
+         24                                     \$35,000               2/5/16   
+         25                                     \$12,000              1/27/16   
+         29            DCAM Certificate        \$100,000              2/18/16   
+         31                                     \$30,000              1/20/16   
+         32                                     \$95,000              1/21/16   
+         33            DCAM Certificate   \$13.3 Million              1/21/16   
+         34                                     \$45,000              1/28/16   
+         37                                     \$50,000              1/21/16   
+         38            DCAM Certificate      \$3,200,000               2/5/16   
+         39                                  \$3,500,000              1/22/16   
+         40                                     \$28,000              1/20/16   
+         41                                                           2/3/16   
+         42                                                          1/27/16   
+         43            DCAM Certificate        \$575,000              1/27/16   
+         44            DCAM Certificate      \$3,400,000              2/24/16   
+         46            DCAM Certificate        \$240,000              1/20/16   
+         47                                     \$84,301              1/26/16   
+         49                                  \$4,125,000               2/3/16   
+         50            DCAM Certificate        \$450,000              1/27/16   
+         {\ldots}                        {\ldots}             {\ldots}                  {\ldots}   
+         34269                                  \$25,000              1/12/11   
+         34270         DCAM Certificate      \$3,200,000              2/10/11   
+         34278                                 \$150,000              1/12/11   
+         34279                            \$1,200,000.00              1/13/11   
+         34280                                  \$90,000               1/5/11   
+         34281                              \$490,000.00              1/11/11   
+         34283                               \$40,000.00              1/19/11   
+         34287                               \$20,000.00               1/6/11   
+         34288         DCAM Certificate      \$9,900,000              2/11/11   
+         34290         DCAM Certificate        \$150,000               1/5/11   
+         34291                                                       1/12/11   
+         34295         DCAM Certificate     \$200,000.00              1/26/11   
+         34299         DCAM Certificate  \$75,000,000.00            1/13/2011   
+         34300         DCAM Certificate     \$175,000.00                        
+         34301         DCAM Certificate     \$970,000.00              1/17/11   
+         34302         DCAM Certificate     \$275,000.00              1/19/11   
+         34303                               \$50,000.00              1/20/11   
+         34304         DCAM Certificate   \$1.76 Million              2/17/11   
+         34305                                  \$19,500              1/12/11   
+         34307                              \$100,000.00              1/20/11   
+         34308                               \$35,000.00              1/19/11   
+         34309                                  \$20,000              1/12/11   
+         34313                                \$190,000.              1/27/11   
+         34316                                  \$80,000              1/24/11   
+         34317                                  \$45,000              1/26/11   
+         34319         DCAM Certificate        \$100,000              1/12/11   
+         34321         DCAM Certificate     \$230,000.00              1/19/11   
+         34327         DCAM Certificate        \$350,000              1/27/11   
+         34329         DCAM Certificate      \$9,900,000              2/11/11   
+         34331                            \$1.28 Million              1/28/11   
+         
+               published\_date                           specifications\_available  \textbackslash{}
+         1           1/6/2016  Above agency address or online at www.andoverm{\ldots}   
+         4           1/6/2016  Above agency address, 1/7/16, 9:00 A.M. - 4:00{\ldots}   
+         6           1/6/2016       Above agency address, 1/4/16 after 9:00 A.M.   
+         7           1/6/2016       Above agency address, 1/4/16 after 9:00 A.M.   
+         13          1/6/2016  Above agency address, 1/7/16.  Office Hours:  {\ldots}   
+         14          1/6/2016  Above agency address, 1/7/16.  Office Hours:  {\ldots}   
+         15          1/6/2016  Above agency address, 1/7/16.  Office Hours:  {\ldots}   
+         16          1/6/2016  Online at www.massconvention.com/rfp, 1/6/16 @{\ldots}   
+         17          1/6/2016  Above agency address or by email request to mr{\ldots}   
+         19          1/6/2016  By email request to bids@ci.everett.ma.us, 1/6{\ldots}   
+         20          1/6/2016  Environmental Partners Group, Inc., 1900 Crown{\ldots}   
+         24          1/6/2016  By email request only to Lindsay P. Dahlberg a{\ldots}   
+         25          1/6/2016  Online at www.projectdog.com (Project Code \#81{\ldots}   
+         29          1/6/2016                     Above agency address, 1/13/16.   
+         31          1/6/2016  Above agency address or by contacting Louise M{\ldots}   
+         32          1/6/2016           Above agency address, 1/7/16 @ 9:00 A.M.   
+         33          1/6/2016  By email request to nantucketfire@vertexeng.co{\ldots}   
+         34          1/6/2016     Online at www.needhamma.gov/bids.aspx, 1/7/16.   
+         37          1/6/2016  Environmental Partners Group, Inc., 1900 Crown{\ldots}   
+         38          1/6/2016  Online at www.pvta.com/opportunities or by con{\ldots}   
+         39          1/6/2016  Above agency address or online at www.plymouth{\ldots}   
+         40          1/6/2016  For pick-up only at the above agency address, {\ldots}   
+         41          1/6/2016  Above agency address or online at http://www.s{\ldots}   
+         42          1/6/2016  Above agency address or online at http://www.s{\ldots}   
+         43          1/6/2016  Above agency address or online at www.umass.ed{\ldots}   
+         44          1/6/2016  Above agency address or online at www.umass.ed{\ldots}   
+         46          1/6/2016  Nashoba Blue, Inc., 433 Main St., Hudson, MA 0{\ldots}   
+         47          1/6/2016  ProjectDog, 18 Graf Rd. Unit 8, Newburyport, M{\ldots}   
+         49          1/6/2016  Online at www.wilmingtonma.gov or by email req{\ldots}   
+         50          1/6/2016  Above agency address or online at http://worce{\ldots}   
+         {\ldots}              {\ldots}                                                {\ldots}   
+         34269     12/22/2010  DPW Building, Administration Office, 470 Dedha{\ldots}   
+         34270     12/22/2010  Mount Vernon Group Architects, Inc., 47 North {\ldots}   
+         34278     12/22/2010     Above agency address, 12/22/10 after 2:00 P.M.   
+         34279     12/22/2010    Above agency address, 12/22/10 after 10:00 A.M.   
+         34280     12/22/2010                    Above agency address, 12/22/10.   
+         34281     12/22/2010                                          12/27/10.   
+         34283     12/22/2010  University of Massachusetts Medical School, Pu{\ldots}   
+         34287     12/22/2010      Above agency address, 978-544-3395, 12/21/10.   
+         34288     12/22/2010  ProjectDog, 18 Graf Rd. Unit \#8, Newburyport, {\ldots}   
+         34290     12/22/2010                                                      
+         34291     12/22/2010  Above agency address, Monday - Friday, 8:30 A{\ldots}   
+         34295     12/29/2010                                                      
+         34299     12/29/2010  DCAM Bid Room at the above agency address or o{\ldots}   
+         34300     12/29/2010  DCAM Bid Room at the above agency address or o{\ldots}   
+         34301     12/29/2010  C.D.M., Inc., One Cambridge Place, 50 Hampshir{\ldots}   
+         34302     12/29/2010  Online at www.comm-pass.com, 12/29/10 after 9:{\ldots}   
+         34303     12/29/2010  Dennis Engineering Department, 120 Theophilus {\ldots}   
+         34304     12/29/2010    Above agency address, 12/29/10 after 10:00 A.M.   
+         34305     12/29/2010       Above agency address, 12/29/10 at 10:00 A.M.   
+         34307     12/29/2010          Above agency address, 1/4/11 at 9:00 A.M.   
+         34308     12/29/2010  Online at www.longmeadow.org through the Purch{\ldots}   
+         34309     12/29/2010                                                      
+         34313     12/29/2010          Above agency address, 1/3/11 at 1:00 P.M.   
+         34316     12/29/2010     By email request to wfeiden@northamptonma.gov.   
+         34317     12/29/2010          Above agency address, 1/3/11 at 9:00 A.M.   
+         34319     12/29/2010  By contacting Michele Wendell, Purchasing Agen{\ldots}   
+         34321     12/29/2010  Online at www.biddocsonline.com, 1/5/11 at 3:0{\ldots}   
+         34327     12/29/2010  Above agency address, Monday, Wednesday and Th{\ldots}   
+         34329     12/29/2010  ProjectDog, 18 Graf Rd. Unit \#8, Newburyport, {\ldots}   
+         34331     12/29/2010  Above agency address, Monday - Friday, 8:30 A{\ldots}   
+         
+                                               sub\_bid\_categories sub\_bid\_deadline  
+         1                                                                          
+         4                                                                          
+         6                                                                          
+         7                                                                          
+         13                                                                         
+         14                                                                         
+         15                                                                         
+         16                                                                         
+         17                                                                         
+         19                                                                         
+         20                                                                         
+         24                                                                         
+         25                                                                         
+         29                                                                         
+         31                                                                         
+         32                                                                         
+         33     Masonry; Misc. Metals; Roofing, Flashing \& She{\ldots}          1/21/16  
+         34                                                                         
+         37                                                                         
+         38     Misc. Metals; Roofing \& Flashing; Aluminum Win{\ldots}          1/28/16  
+         39                                                                         
+         40                                                                         
+         41                                                                         
+         42                                                                         
+         43     210001 Fire Protection Sprinkler Systems; 2200{\ldots}           2/3/16  
+         44     050001 Misc. \& Ornamental Iron; 230000 HVAC; 2{\ldots}          2/10/16  
+         46                                                                         
+         47                                                                         
+         49                                                                         
+         50                                                                         
+         {\ldots}                                                  {\ldots}              {\ldots}  
+         34269                                                                      
+         34270  Masonry; Misc. Metals; Waterproofing, Dampproo{\ldots}          1/27/11  
+         34278                                                                      
+         34279                                                                      
+         34280                                                                      
+         34281                                                                      
+         34283                                                                      
+         34287                                                                      
+         34288  055000 Metal Fabrications; 088000 Glass \& Glaz{\ldots}          1/28/11  
+         34290                                                                      
+         34291                                                                      
+         34295                   Electrical, Mechanical, Plumbing          1/12/11  
+         34299                                                                      
+         34300                               Elevators (\$175,000)          1/14/11  
+         34301                                                                      
+         34302                                                                      
+         34303                                                                      
+         34304  Electrical, Painting, Roofing \& Flashing, HVAC{\ldots}          1/27/11  
+         34305                                                                      
+         34307                                                                      
+         34308                                                                      
+         34309                                                                      
+         34313                                                                      
+         34316                                                                      
+         34317                                                                      
+         34319                                                                      
+         34321                                                                      
+         34327                                                                      
+         34329  055000 Metal Fabrications; 088000 Glass \& Glaz{\ldots}          1/28/11  
+         34331                                                                      
+         
+         [19117 rows x 15 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Comparison of `difference\PYZus{}general` and `award` dataframes}
+         \PY{n}{df\PYZus{}target\PYZus{}general} \PY{o}{=} \PY{n}{df\PYZus{}diff\PYZus{}general}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{df\PYZus{}diff\PYZus{}general}\PY{o}{.}\PY{n}{Agency}\PY{o}{.}\PY{n}{isin}\PY{p}{(}\PY{n}{df\PYZus{}award}\PY{o}{.}\PY{n}{Agency}\PY{o}{.}\PY{n}{values}\PY{p}{)}\PY{p}{]}
+         \PY{n}{df\PYZus{}target\PYZus{}general}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{unaccounted\PYZus{}RFPs.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{df\PYZus{}target\PYZus{}general}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:}                                                   Agency  \textbackslash{}
+         1      Andover, Town ofCentral Purchasing Department3{\ldots}   
+         4      Billerica, Town ofTown Manager's Office365 Bos{\ldots}   
+         6      Boston, City ofParks and Recreation Department{\ldots}   
+         7      Boston, City ofParks and Recreation Department{\ldots}   
+         16     Convention Center Authority, Massachusetts (MC{\ldots}   
+         17     Dartmouth, Town of Board of Public Works759 Ru{\ldots}   
+         19        Everett, City of 484 BroadwayEverett, MA 02149   
+         20     Hanson, Town of Water Department1073 West Wash{\ldots}   
+         24     Lexington, Town of 201 Bedford St.Lexington, M{\ldots}   
+         25     Manchester-by-the-Sea, Town ofHousing Authorit{\ldots}   
+         29     Martha's Vineyard Airport Commission71 Airport{\ldots}   
+         31     Medford, City ofPurchasing Office85 George P. {\ldots}   
+         33     Nantucket, Town of 16 Broad St.Nantucket, MA 0{\ldots}   
+         34     Needham, Town of 500 Dedham Ave.Needham, MA 02492   
+         37     Pembroke, Town of 100 Center St.Pembroke, MA 0{\ldots}   
+         38     Pioneer Valley Transit Authority (PVTA)Office {\ldots}   
+         39     Plymouth, Town of      ***RE-BID***Procurement{\ldots}   
+         40     Public Health, Department of (DPH) Lemuel Shat{\ldots}   
+         41     Somerville, City of Purchasing Department93 Hi{\ldots}   
+         42     Somerville, City of            ***RE-BID***Pur{\ldots}   
+         49     Wilmington, Town of 121 Glen Rd.Wilmington, MA{\ldots}   
+         51     Worcester, City of Purchasing Division455 Main{\ldots}   
+         53     Attleboro, City of Government Center77 Park St{\ldots}   
+         55     Belmont, Town of Facilities Department19 Moore{\ldots}   
+         56     Boston, City ofHousing Authority (BHA)Procurem{\ldots}   
+         59     Brookline, Town of Building Commission333 Wash{\ldots}   
+         61     Correction, Department of (DOC)50 Maple St. Su{\ldots}   
+         62     Dalton, Town ofFire District20 Flansburg Ave.D{\ldots}   
+         65     Dracut, Town of Office of the Town Manager62 A{\ldots}   
+         66     Fall River, City ofHousing Authority85 Morgan {\ldots}   
+         {\ldots}                                                  {\ldots}   
+         34250  Chelmsford, Town of 50 Billerica Rd.Chelmsford{\ldots}   
+         34253  Fall River, City of Purchasing Department1 Gov{\ldots}   
+         34254  Fish and Game, Department of Division of Marin{\ldots}   
+         34255  Fitchburg State UniversityCapital Planning and{\ldots}   
+         34262  Haverhill, City ofOffice of the City Engineer4{\ldots}   
+         34264    Lincoln, Town of16 Lincoln Rd.Lincoln, MA 01773   
+         34268  Marshfield, Town ofSchool Department76 South R{\ldots}   
+         34269  Needham, Town of Department of Public Faciliti{\ldots}   
+         34270  New Bedford, City of Public Schools Office of {\ldots}   
+         34278  Quinsigamond Community CollegeOffice of Facili{\ldots}   
+         34280  Soldiers' Home in MassachusettsOperations Offi{\ldots}   
+         34281  Somerville, City of Purchasing Department93 Hi{\ldots}   
+         34287  Wendell, Town of Selectboard/Town Coordinator9{\ldots}   
+         34290  Worcester, City of Purchasing Division455 Main{\ldots}   
+         34291  Worcester, City of Purchasing Division455 Main{\ldots}   
+         34295  Boston, City ofPublic Health Commission/Proper{\ldots}   
+         34299  Capital Asset Management, Division of (DCAM)  {\ldots}   
+         34300  Capital Asset Management, Division of (DCAM)  {\ldots}   
+         34301  Chelsea, City of 500 Broadway Room 206Chelsea,{\ldots}   
+         34303  Dennis, Town of 485 Main St.South Dennis, MA  {\ldots}   
+         34307  Lexington, Town ofPurchasing Office1625 Massac{\ldots}   
+         34308  Longmeadow, Town ofOffice of the Purchasing Co{\ldots}   
+         34313  Mount Wachusett Community CollegeExecutive Off{\ldots}   
+         34316  Northampton, City ofOffice of Planning and Dev{\ldots}   
+         34317  Northbridge, Town of Department of Public Work{\ldots}   
+         34319  Saugus, Town ofPurchasing Department298 Centra{\ldots}   
+         34321  Springfield, City of         ***RE-BID***Offic{\ldots}   
+         34327  Walpole, Town of Purchasing Office135 School S{\ldots}   
+         34329  Westwood, Town of           ***REVISED***580 H{\ldots}   
+         34331  Worcester, City of Purchasing Division455 Main{\ldots}   
+         
+                                            ContactEmail  \textbackslash{}
+         1                        twatkins@andoverma.gov   
+         4                      dmcsweeney@kvaboston.com   
+         6                                                 
+         7                                                 
+         16                    truane@massconvention.com   
+         17              mrmendonca@town.dartmouth.ma.us   
+         19                        bids@ci.everett.ma.us   
+         20     dbn@envpartners.com; sco@envpartners.com   
+         24                     sdemango@lexingtonma.gov   
+         25                         irenef.mha@gmail.com   
+         29                        kelias@mvyairport.com   
+         31                          lmiller@medford.org   
+         33                       jlemieux@vertexeng.com   
+         34                       csimchak@needhamma.gov   
+         37                          dbn@envpartners.com   
+         38                              brosas@pvta.com   
+         39          procurement@townhall.plymouth.ma.us   
+         40          Richard.Peters@MassMail.State.MA.US   
+         41                     anosnik@somervillema.gov   
+         42                     anosnik@somervillema.gov   
+         49                wmartiniello@wilmingtonma.gov   
+         51                       morink@worcesterma.gov   
+         53                purchasing@cityofattleboro.us   
+         55                        gboyle@belmont-ma.gov   
+         56                       bids@bostonhousing.org   
+         59                      mflaherty@russobarr.com   
+         61      AnnMarie.Rodrigues@MassMail.State.MA.US   
+         62                     daltonchief@nycap.rr.com   
+         65                    bpeters@mvgarchitects.com   
+         66                   rsmith@jmba-architects.com   
+         {\ldots}                                         {\ldots}   
+         34250              mcurrier@townofchelmsford.us   
+         34253                        edubois@fstinc.com   
+         34254                Anthony.Stella@state.ma.us   
+         34255            nfitzgerald@fitchburgstate.edu   
+         34262              rdefusco@cityofhaverhill.com   
+         34264                    bibboc@lincolntown.org   
+         34268                hdelorey@kbaarchitects.com   
+         34269                     clustig@needhamma.gov   
+         34270             jfigueiredo@mvgarchitects.com   
+         34278                             pwest@qcc.edu   
+         34280      robert.maniatis@massmail.state.ma.us   
+         34281                  amallen@somervillema.gov   
+         34287                     towncoord@crocker.com   
+         34290               gagliastroc@worcesterma.gov   
+         34291                      bids@worcesterma.gov   
+         34295                           broman@bphc.org   
+         34299                                             
+         34300                                             
+         34301                     rbishop@chelseama.gov   
+         34303                tandrade@town.dennis.ma.us   
+         34307                  mvalente@lexingtonma.gov   
+         34308                  cthompson@longmeadow.org   
+         34313                    p\_dakota@mwcc.mass.edu   
+         34316                 wfeiden@northamptonma.gov   
+         34317           rsasseville@northbridgemass.org   
+         34319                      SAFulchino@gmail.com   
+         34321     hgates-bryant@springfieldcityhall.com   
+         34327                         davida@wseinc.com   
+         34329                           jays@deztek.com   
+         34331                      bids@worcesterma.gov   
+         
+                                                      ContactName  \textbackslash{}
+         1                    Thomas P. Watkins, Purchasing Agent   
+         4                                       Daniel McSweeney   
+         6                                    Cathy Baker-Eclipse   
+         7                                        Allison Perlman   
+         16                                         Theresa Ruane   
+         17                  Rosa Mendonca, Contract Bidding Aide   
+         19                                           Chad Luongo   
+         20                                        Deborah Nestel   
+         24                                        Sergio DeMango   
+         25                                       Irene Frontiero   
+         29                                             Kim Elias   
+         31                                         Louise Miller   
+         33                                           Jon Lemieux   
+         34                                       Cecilia Simchak   
+         37                                        Deborah Nestel   
+         38                                         Barbara Rosas   
+         39                 Pamela D. Hagler, Procurement Officer   
+         40                                        Richard Peters   
+         41                                           Alex Nosnik   
+         42                                           Alex Nosnik   
+         49                                     Wendy Martiniello   
+         51                                        Kerrilyn Morin   
+         53                                           Carol Brown   
+         55                                       Gerald R. Boyle   
+         56                                Procurement Department   
+         59                                   Michael J. Flaherty   
+         61                                    Annmarie Rodrigues   
+         62                           Chief Gerald J. Cahalan, Jr   
+         65                                        William Peters   
+         66                                             Rob Smith   
+         {\ldots}                                                  {\ldots}   
+         34250                                     Marian Currier   
+         34253            Elise DuBois, Fay, Spofford \& Thorndike   
+         34254                               Anthony Stella, P.E.   
+         34255                                   Nancy FitzGerald   
+         34262                                     Robert DeFusco   
+         34264                                        Chris Bibbo   
+         34268                                       Lino Mancini   
+         34269                                       Carys Lustig   
+         34270                                   Jorge Figueiredo   
+         34278  Donald Hall, Direcor of Facilities; Penny West{\ldots}   
+         34280               Robert Maniatis, Life Safety Officer   
+         34281                                       Angela Allen   
+         34287                                      Nancy Aldrich   
+         34290                                   Chris Gagliastro   
+         34291                                        John Orrell   
+         34295                                    Belkis L. Roman   
+         34299                                      DCAM Bid Room   
+         34300                                      DCAM Bid Room   
+         34301                                   Robert H. Bishop   
+         34303                                     Thomas Andrade   
+         34307                                       Mark Valente   
+         34308                 Chad Thompson, Procurement Manager   
+         34313                                    Patricia Dakota   
+         34316                                Wayne Feiden, FAICP   
+         34317                              Richard R. Sasseville   
+         34319                                   Sal Fulchino, PE   
+         34321                                 Helen Gates-Bryant   
+         34327                                  Purchasing Office   
+         34329                                       Jay Stanbury   
+         34331                                        John Orrell   
+         
+                          ContactPhone                     CustomId  \textbackslash{}
+         1                978-623-8216     GC1/1/20161/10/201600001   
+         4                857-300-6325     GC1/1/20161/10/201600004   
+         6                617-961-3058     GC1/1/20161/10/201600006   
+         7                617-635-4505     GC1/1/20161/10/201600007   
+         16               617-954-2000     GC1/1/20161/10/201600016   
+         17      508-999-0740 ext. 207     GC1/1/20161/10/201600017   
+         19               617-394-2290     GC1/1/20161/10/201600019   
+         20               617-657-0200     GC1/1/20161/10/201600020   
+         24               781-274-8970     GC1/1/20161/10/201600024   
+         25               978-526-1850     GC1/1/20161/10/201600025   
+         29               508-693-7022     GC1/1/20161/10/201600029   
+         31               781-393-2464     GC1/1/20161/10/201600031   
+         33               781-952-6000     GC1/1/20161/10/201600033   
+         34               781-455-7550     GC1/1/20161/10/201600034   
+         37               617-657-0200     GC1/1/20161/10/201600037   
+         38               413-732-6248     GC1/1/20161/10/201600038   
+         39      508-747-1620 ext. 210     GC1/1/20161/10/201600039   
+         40               617-971-3660     GC1/1/20161/10/201600040   
+         41     617-625-6600 ext. 3400     GC1/1/20161/10/201600041   
+         42     617-625-6600 ext. 3400     GC1/1/20161/10/201600042   
+         49               978-658-3311     GC1/1/20161/10/201600049   
+         51               508-799-1221     GC1/1/20161/10/201600051   
+         53     508-223-2222 ext. 3262    GC1/11/20161/20/201600002   
+         55               617-993-2640    GC1/11/20161/20/201600004   
+         56               617-988-4038    GC1/11/20161/20/201600005   
+         59               781-273-1537    GC1/11/20161/20/201600008   
+         61               508-422-3365    GC1/11/20161/20/201600010   
+         62               413-684 0500    GC1/11/20161/20/201600011   
+         65               781-451-0228    GC1/11/20161/20/201600014   
+         66               508-999-6220    GC1/11/20161/20/201600015   
+         {\ldots}                       {\ldots}                          {\ldots}   
+         34250            978-250-5201  GC12/21/201012/31/201000007   
+         34253            781-221-1243  GC12/21/201012/31/201000010   
+         34254            617-727-1843  GC12/21/201012/31/201000011   
+         34255            978-665-3423  GC12/21/201012/31/201000012   
+         34262            978-420-3606  GC12/21/201012/31/201000019   
+         34264            781-259-8999  GC12/21/201012/31/201000021   
+         34268            617-241-2807  GC12/21/201012/31/201000025   
+         34269            781-455-0442  GC12/21/201012/31/201000026   
+         34270            508-991-7500  GC12/21/201012/31/201000027   
+         34278            508-854-4515  GC12/21/201012/31/201000035   
+         34280            617-887-7170  GC12/21/201012/31/201000037   
+         34281  617-625-6600 ext. 3410  GC12/21/201012/31/201000038   
+         34287            978-544-3395  GC12/21/201012/31/201000044   
+         34290                          GC12/21/201012/31/201000047   
+         34291                          GC12/21/201012/31/201000048   
+         34295            617-534-2500  GC12/21/201012/31/201000052   
+         34299            617-727-4003  GC12/21/201012/31/201000056   
+         34300            617-727-4003  GC12/21/201012/31/201000057   
+         34301            617-466-4224  GC12/21/201012/31/201000058   
+         34303            508-760-6166  GC12/21/201012/31/201000060   
+         34307            781-274-8357  GC12/21/201012/31/201000064   
+         34308            413-565-4136  GC12/21/201012/31/201000065   
+         34313            978-630-9103  GC12/21/201012/31/201000070   
+         34316            413-587-1265  GC12/21/201012/31/201000073   
+         34317            508-234-3581  GC12/21/201012/31/201000074   
+         34319            617-840-7067  GC12/21/201012/31/201000076   
+         34321            413-787-6284  GC12/21/201012/31/201000078   
+         34327            508-660-7290  GC12/21/201012/31/201000084   
+         34329            978-462-2094  GC12/21/201012/31/201000086   
+         34331                          GC12/21/201012/31/201000088   
+         
+                                                          Project  \textbackslash{}
+         1      Andover West Middle School Auditorium Seating {\ldots}   
+         4      Construction Management at Risk (CMR) Request {\ldots}   
+         6      Improvements to Marcella Playground, Roxbury: {\ldots}   
+         7      Improvements to Monsignor Reynolds Playground,{\ldots}   
+         16     Boston Convention and Exhibition Center Exteri{\ldots}   
+         17     Design and Construction of the Expansion to a {\ldots}   
+         19     Replacement and/or construction of concrete si{\ldots}   
+         20     2016, Phase I Water Main Improvements and Appu{\ldots}   
+         24     Remove and replace old Camera Systems with new{\ldots}   
+         25     New Executive Office at the Plains Development{\ldots}   
+         29     Martha's Vineyard Airport Terminal and General{\ldots}   
+         31     Building of Indoor Batting Cages in the Upper {\ldots}   
+         33     Contractor and Subcontractor Pre-qualification{\ldots}   
+         34                                     RTS Roof Repairs.   
+         37     2016 Well Rehabilitation:  Work includes clean{\ldots}   
+         38     New PVTA Westfield Transit Pavilion at 10 Arno{\ldots}   
+         39            Replacement of a wharf in Plymouth Harbor.   
+         40       Replace the Condensate Tank in the Power Plant.   
+         41                           Cedar St. Sewer Separation.   
+         42     Union Square transportation and utility improv{\ldots}   
+         49     Construction of an outdoor recreational facili{\ldots}   
+         51     Generator Maintenance and Repairs for Worceste{\ldots}   
+         53     Remove and Replace the existing roof at the Li{\ldots}   
+         55           Belmont High School Fire Alarm Replacement.   
+         56     The Boston Housing Authority is seeking quotes{\ldots}   
+         59                       Roof and Exterior Wall Project.   
+         61     Video Security System Upgrades:  Install CCTV {\ldots}   
+         62     The Dalton Fire District intends on procuring {\ldots}   
+         65     Dracut High School Dunnage Access Platforms at{\ldots}   
+         66     Conversion of four existing first floor apartm{\ldots}   
+         {\ldots}                                                  {\ldots}   
+         34250  Renovation and Restoration of the Center and N{\ldots}   
+         34253  Water Main Improvements Program Phase 10, DWSR{\ldots}   
+         34254  Herring Brook at Upper Mill Pond Fishway and S{\ldots}   
+         34255                  Dupont Building Roof Replacement.   
+         34262  The work to be done under this contract shall {\ldots}   
+         34264  Roadway construction and paving, miscellaneous{\ldots}   
+         34268  Window replacement and new HVAC system at the {\ldots}   
+         34269  The Town of Needham invites sealed bids for Te{\ldots}   
+         34270  Andre McCoy Field House Project, New Bedford: {\ldots}   
+         34278  Window replacement at selected openings in the{\ldots}   
+         34280  Sealed bids for the provision of Interior Part{\ldots}   
+         34281  MaxPac Access Improvements Project:  Construct{\ldots}   
+         34287  Replace two furnaces in Highway Garage/Fire St{\ldots}   
+         34290  SCADA Upgrades, Wastewater Systems for DPW and{\ldots}   
+         34291  Window Installations for WFD:  Replacement of {\ldots}   
+         34295  Renovation of 723, 725 and 727 Massachusetts A{\ldots}   
+         34299  Request for Qualifications for Construction Ma{\ldots}   
+         34300  Request for Qualifications for Trade Contracto{\ldots}   
+         34301  Highland Park Field Improvements, 31 Willow St{\ldots}   
+         34303     Pier Replacement at Aunt Julia Anne's Landing.   
+         34307  Remove and replace existing lamps, pedestrian {\ldots}   
+         34308  IFB for Accessible Toilet Room Alterations at {\ldots}   
+         34313                            Replace Pool HVAC Unit.   
+         34316  Installation, removal, storage and maintenance{\ldots}   
+         34317      Inspection and monitoring of sludge landfill.   
+         34319  The Town of Saugus is in need of modifications{\ldots}   
+         34321  Tenant build-out of medical/dental clinic at 1{\ldots}   
+         34327  Phase 3 Rehabilitation of E.J. Delaney Water T{\ldots}   
+         34329  Westwood Public Library, 660 High St., Westwoo{\ldots}   
+         34331  Dunkirk Ave. and Mower St. Areas Sewer System {\ldots}   
+         
+                                 ProjectNumber  \textbackslash{}
+         1                       020/01-16/185   
+         4                        201300310505   
+         6                            CPR24010   
+         7                            CPR22583   
+         16                                J76   
+         17                          16-DPW-01   
+         19                           160121-1   
+         20                           160-1501   
+         24                              16-53   
+         25                       DHCD \#166037   
+         29                        MVY-2015-05   
+         31                            16-0043   
+         33                             2016-1   
+         34                          16PFO151B   
+         37                             2016-1   
+         38                        IFB \#15-012   
+         39                              21601   
+         40                     DPH 821716-601   
+         41                          IFB 16-48   
+         42                         IFB 15-105   
+         49                       978-658-3311   
+         51                         CR-6486-K5   
+         53                 PLAN-01292016-1100   
+         55                            2016-43   
+         56                        BHA 1303-02   
+         59                            2015067   
+         61                        DRM 2015-28   
+         62                              DFD-9   
+         65                           02010.03   
+         66                       DHCD \#095110   
+         {\ldots}                               {\ldots}   
+         34250                        CTH 2011   
+         34253  DWSRF 3345, Contract 1, IFB 11   
+         34254                          PA-287   
+         34255              C006,  Bid \#F88-11   
+         34262                       IFB016.11   
+         34264     Highway Paving - Contract 2   
+         34268                         S114109   
+         34269                     11PFO-470BX   
+         34270                           20005   
+         34278                          1717-2   
+         34280                    CHE NN 11-20   
+         34281                      IFB \#11-38   
+         34287                   SB 2010 HWYFS   
+         34290                         5361-W0   
+         34291                         5359-J0   
+         34295                       NS-140-11   
+         34299   UMA0801DC1 (2nd Solicitation)   
+         34300        UML0802DC1 (2nd Request)   
+         34301                        2011-100   
+         34303                       E-2011-01   
+         34307                          \#11-25   
+         34308                       TOL-4-003   
+         34313                     MWC-B110007   
+         34316       2011-2013 Channel Markers   
+         34317                          11-006   
+         34319            Saugus Project 34-10   
+         34321                          11-240   
+         34327                Contract 2011-14   
+         34329                           29010   
+         34331                         5317-J0   
+         
+                                           additional\_information  \textbackslash{}
+         1      Pre-bid Conference/Site Visit:  1/19/16 @ 10:0{\ldots}   
+         4          This project is being bid per M.G.L. c. 149A.   
+         6      Pre-bid Conference:  1/12/16 @ 10:00 A.M. in t{\ldots}   
+         7      Pre-bid Conference:  1/16/16 @ 10:00 A.M. in t{\ldots}   
+         16     Pre-bid Conference:  1/14/16 @ 10:00 A.M. at t{\ldots}   
+         17     Pre-bid Meeting:  1/19/16 @ 10:00 A.M.  Plan d{\ldots}   
+         19                                                         
+         20     Plan deposit is \$50 (refundable), payable to E{\ldots}   
+         24     Plans/specs will not be available for pick-up {\ldots}   
+         25     For assistance call ProjectDog at 978-499-9014{\ldots}   
+         29     Mandatory Pre-bid Conference:  1/21/16 @ 10:00{\ldots}   
+         31     Bids must be accompanied by a bid deposit of n{\ldots}   
+         33     Responses must be mailed or hand-delivered to {\ldots}   
+         34     Mandatory Pre-bid Meeting:  1/19/16 @ 1:00 P.M{\ldots}   
+         37     Plan deposit is \$50 (refundable), payable to E{\ldots}   
+         38     Pre-bid Conference/Walk-through:  1/19/16 @ 10{\ldots}   
+         39     Plan deposit is \$100 (refundable).  Mailing fe{\ldots}   
+         40     Walk-through/Site Visit:  1/13/16 @ 10:00 A.M{\ldots}   
+         41     A 5\% bid deposit is required.  Prevailing Wage{\ldots}   
+         42     A 5\% bid deposit is required.  Prevailing Wage{\ldots}   
+         49     Voluntary Pre-bid Conference:  1/20/16 @ 10:00{\ldots}   
+         51                                                         
+         53     Mandatory Walk-through:  1/21/16 @ 11:00 A.M. {\ldots}   
+         55     Pre-bid Meeting:  1/20/16 @ 10:00 A.M. in the {\ldots}   
+         56     Site Visit:  1/18/16 @ 9:00 A.M. at 120 George{\ldots}   
+         59     Pre-bid Meeting:  1/19/16 @ 2:00 P.M. at the M{\ldots}   
+         61     Site Visit  1/25/16 @ 8:30 A.M. at Bridgewater{\ldots}   
+         62     Mandatory Pre-bid Walk-though:  1/20/16 at the{\ldots}   
+         65     Pre-bid Conference:  1/21/16 @ 3:00 P.M. in th{\ldots}   
+         66     Pre-bid Conference:  1/20/15 @ 9:00 A.M. at th{\ldots}   
+         {\ldots}                                                  {\ldots}   
+         34250  Tentative date for site visit:  1/4/11.  See R{\ldots}   
+         34253  Plans are \$50 per set, refundable if returned {\ldots}   
+         34254                                                      
+         34255  Pre-Bid Conference:  1/4/11 at 10:00 A.M. in t{\ldots}   
+         34262  The City reserves the right to reject any and {\ldots}   
+         34264  Pre-bid conference:  1/6/11 at 10:00 A.M. at t{\ldots}   
+         34268  Pre-bid conference:  12/29/10 at 9:00 A.M. at {\ldots}   
+         34269  Mandatory pre-bid conference:  12/30/10 at 10:{\ldots}   
+         34270  Pre-bid conference:  1/17/11 at 1:00 P.M. at t{\ldots}   
+         34278  The date of substantial completion will be 6/3{\ldots}   
+         34280  Mandatory walk-through:  12/29/10 at 10:00 A.M{\ldots}   
+         34281  Prevailing Wage Rates apply.  5\% bid bond requ{\ldots}   
+         34287  Walk-through:  12/30/10 at 10:00 A.M.  Call to{\ldots}   
+         34290                                                      
+         34291                                                      
+         34295  Site visit:  1/5/11 at 10:00 A.M. at 725 Massa{\ldots}   
+         34299  This is a Construction Management at Risk proj{\ldots}   
+         34300  This is a Construction Management at Risk proj{\ldots}   
+         34301  Pre-Bid:  1/6/11 at 1:00 P.M. at the site.  Fe{\ldots}   
+         34303  Pre-Bid:  1/13/11 at 11:30 A.M.  \$25.00 non-re{\ldots}   
+         34307                                                      
+         34308  Mandatory pre-bid conference:  1/12/11 at 10:3{\ldots}   
+         34313  Mandatory Pre-bid Meeting:  1/14/11 at 10:00 A{\ldots}   
+         34316                                                      
+         34317                  Basic year with two option years.   
+         34319  Pre-Bid Conference:  1/3/11 at 2:30 P.M. at th{\ldots}   
+         34321                                                      
+         34327  \$50.00 refundable deposit and \$25.00 nonrefund{\ldots}   
+         34329  Interested bidders may visit the site on 1/6/1{\ldots}   
+         34331  \$50 non-refundable mailing fee for specs if re{\ldots}   
+         
+               contractor\_qualification  estimated\_cost general\_bid\_deadline  \textbackslash{}
+         1                                      \$45,000              1/29/16   
+         4             DCAM Certificate    \$141,000,000              1/29/16   
+         6                                   \$1,800,000              1/21/16   
+         7                                     \$435,000              1/21/16   
+         16            DCAM Certificate      \$1,800,000              1/29/16   
+         17            DCAM Certificate    \$2.5 Million              2/18/16   
+         19                                     \$35,000              1/21/16   
+         20                                  \$1,100,000              1/27/16   
+         24                                     \$35,000               2/5/16   
+         25                                     \$12,000              1/27/16   
+         29            DCAM Certificate        \$100,000              2/18/16   
+         31                                     \$30,000              1/20/16   
+         33            DCAM Certificate   \$13.3 Million              1/21/16   
+         34                                     \$45,000              1/28/16   
+         37                                     \$50,000              1/21/16   
+         38            DCAM Certificate      \$3,200,000               2/5/16   
+         39                                  \$3,500,000              1/22/16   
+         40                                     \$28,000              1/20/16   
+         41                                                           2/3/16   
+         42                                                          1/27/16   
+         49                                  \$4,125,000               2/3/16   
+         51                                     \$50,000              1/20/16   
+         53                                     \$81,000           01/29/2016   
+         55            DCAM Certificate        \$800,000              1/28/16   
+         56                                      \$9,350              1/28/16   
+         59            DCAM Certificate        \$553,363               2/4/16   
+         61            DCAM Certificate        \$375,000               2/2/16   
+         62       Department of Highway         \$99,500              1/27/16   
+         65            DCAM Certificate        \$225,000              2/10/16   
+         66            DCAM Certificate        \$469,154              2/11/16   
+         {\ldots}                        {\ldots}             {\ldots}                  {\ldots}   
+         34250         DCAM Certificate      \$4,200,000               1/6/11   
+         34253                               \$1,400,000              1/11/11   
+         34254                                 \$130,000              1/18/11   
+         34255         DCAM Certificate        \$125,000              1/13/11   
+         34262                                 \$200,000              1/27/11   
+         34264    Department of Highway      \$2,100,000              1/21/11   
+         34268         DCAM Certificate      \$2,000,000              1/14/11   
+         34269                                  \$25,000              1/12/11   
+         34270         DCAM Certificate      \$3,200,000              2/10/11   
+         34278                                 \$150,000              1/12/11   
+         34280                                  \$90,000               1/5/11   
+         34281                              \$490,000.00              1/11/11   
+         34287                               \$20,000.00               1/6/11   
+         34290         DCAM Certificate        \$150,000               1/5/11   
+         34291                                                       1/12/11   
+         34295         DCAM Certificate     \$200,000.00              1/26/11   
+         34299         DCAM Certificate  \$75,000,000.00            1/13/2011   
+         34300         DCAM Certificate     \$175,000.00                        
+         34301         DCAM Certificate     \$970,000.00              1/17/11   
+         34303                               \$50,000.00              1/20/11   
+         34307                              \$100,000.00              1/20/11   
+         34308                               \$35,000.00              1/19/11   
+         34313                                \$190,000.              1/27/11   
+         34316                                  \$80,000              1/24/11   
+         34317                                  \$45,000              1/26/11   
+         34319         DCAM Certificate        \$100,000              1/12/11   
+         34321         DCAM Certificate     \$230,000.00              1/19/11   
+         34327         DCAM Certificate        \$350,000              1/27/11   
+         34329         DCAM Certificate      \$9,900,000              2/11/11   
+         34331                            \$1.28 Million              1/28/11   
+         
+               published\_date                           specifications\_available  \textbackslash{}
+         1           1/6/2016  Above agency address or online at www.andoverm{\ldots}   
+         4           1/6/2016  Above agency address, 1/7/16, 9:00 A.M. - 4:00{\ldots}   
+         6           1/6/2016       Above agency address, 1/4/16 after 9:00 A.M.   
+         7           1/6/2016       Above agency address, 1/4/16 after 9:00 A.M.   
+         16          1/6/2016  Online at www.massconvention.com/rfp, 1/6/16 @{\ldots}   
+         17          1/6/2016  Above agency address or by email request to mr{\ldots}   
+         19          1/6/2016  By email request to bids@ci.everett.ma.us, 1/6{\ldots}   
+         20          1/6/2016  Environmental Partners Group, Inc., 1900 Crown{\ldots}   
+         24          1/6/2016  By email request only to Lindsay P. Dahlberg a{\ldots}   
+         25          1/6/2016  Online at www.projectdog.com (Project Code \#81{\ldots}   
+         29          1/6/2016                     Above agency address, 1/13/16.   
+         31          1/6/2016  Above agency address or by contacting Louise M{\ldots}   
+         33          1/6/2016  By email request to nantucketfire@vertexeng.co{\ldots}   
+         34          1/6/2016     Online at www.needhamma.gov/bids.aspx, 1/7/16.   
+         37          1/6/2016  Environmental Partners Group, Inc., 1900 Crown{\ldots}   
+         38          1/6/2016  Online at www.pvta.com/opportunities or by con{\ldots}   
+         39          1/6/2016  Above agency address or online at www.plymouth{\ldots}   
+         40          1/6/2016  For pick-up only at the above agency address, {\ldots}   
+         41          1/6/2016  Above agency address or online at http://www.s{\ldots}   
+         42          1/6/2016  Above agency address or online at http://www.s{\ldots}   
+         49          1/6/2016  Online at www.wilmingtonma.gov or by email req{\ldots}   
+         51          1/6/2016                     Online at www.worcesterma.gov.   
+         53         1/13/2016                                                      
+         55         1/13/2016  Above agency address or by email request to Ci{\ldots}   
+         56         1/13/2016  Above agency address or by email request (incl{\ldots}   
+         59         1/13/2016  By email request to mflaherty@russobarr.com, 1{\ldots}   
+         61         1/13/2016  Above agency address or by calling Darlene Hai{\ldots}   
+         62         1/13/2016  Repro Systems, Inc., 20 Yorkshire Ave., Pittsf{\ldots}   
+         65         1/13/2016  Mount Vernon Group Architects, Inc., 148 Albio{\ldots}   
+         66         1/13/2016  Nashoba Blue, Inc., 433 Main St., Hudson, MA 0{\ldots}   
+         {\ldots}              {\ldots}                                                {\ldots}   
+         34250     12/22/2010                    12/22/10, 8:30 A.M. - 4:00 P.M.   
+         34253     12/22/2010  Fay, Spofford, \& Thorndike, LLC, Clerk's Offic{\ldots}   
+         34254     12/22/2010        Above agency address, 12/22/10 at 8:00 A.M.   
+         34255     12/22/2010  Nashoba Blue, 433 Main St., Hudson, MA 01749, {\ldots}   
+         34262     12/22/2010  Above agency address or online at www.ci.haver{\ldots}   
+         34264     12/22/2010  Lincoln Highway Department, 30 Lewis St., Linc{\ldots}   
+         34268     12/22/2010  Knight, Bagge \& Anderson, Inc., 6 Thirteenth S{\ldots}   
+         34269     12/22/2010  DPW Building, Administration Office, 470 Dedha{\ldots}   
+         34270     12/22/2010  Mount Vernon Group Architects, Inc., 47 North {\ldots}   
+         34278     12/22/2010     Above agency address, 12/22/10 after 2:00 P.M.   
+         34280     12/22/2010                    Above agency address, 12/22/10.   
+         34281     12/22/2010                                          12/27/10.   
+         34287     12/22/2010      Above agency address, 978-544-3395, 12/21/10.   
+         34290     12/22/2010                                                      
+         34291     12/22/2010  Above agency address, Monday - Friday, 8:30 A{\ldots}   
+         34295     12/29/2010                                                      
+         34299     12/29/2010  DCAM Bid Room at the above agency address or o{\ldots}   
+         34300     12/29/2010  DCAM Bid Room at the above agency address or o{\ldots}   
+         34301     12/29/2010  C.D.M., Inc., One Cambridge Place, 50 Hampshir{\ldots}   
+         34303     12/29/2010  Dennis Engineering Department, 120 Theophilus {\ldots}   
+         34307     12/29/2010          Above agency address, 1/4/11 at 9:00 A.M.   
+         34308     12/29/2010  Online at www.longmeadow.org through the Purch{\ldots}   
+         34313     12/29/2010          Above agency address, 1/3/11 at 1:00 P.M.   
+         34316     12/29/2010     By email request to wfeiden@northamptonma.gov.   
+         34317     12/29/2010          Above agency address, 1/3/11 at 9:00 A.M.   
+         34319     12/29/2010  By contacting Michele Wendell, Purchasing Agen{\ldots}   
+         34321     12/29/2010  Online at www.biddocsonline.com, 1/5/11 at 3:0{\ldots}   
+         34327     12/29/2010  Above agency address, Monday, Wednesday and Th{\ldots}   
+         34329     12/29/2010  ProjectDog, 18 Graf Rd. Unit \#8, Newburyport, {\ldots}   
+         34331     12/29/2010  Above agency address, Monday - Friday, 8:30 A{\ldots}   
+         
+                                               sub\_bid\_categories sub\_bid\_deadline  
+         1                                                                          
+         4                                                                          
+         6                                                                          
+         7                                                                          
+         16                                                                         
+         17                                                                         
+         19                                                                         
+         20                                                                         
+         24                                                                         
+         25                                                                         
+         29                                                                         
+         31                                                                         
+         33     Masonry; Misc. Metals; Roofing, Flashing \& She{\ldots}          1/21/16  
+         34                                                                         
+         37                                                                         
+         38     Misc. Metals; Roofing \& Flashing; Aluminum Win{\ldots}          1/28/16  
+         39                                                                         
+         40                                                                         
+         41                                                                         
+         42                                                                         
+         49                                                                         
+         51                                                                         
+         53                                                                         
+         55                                                                         
+         56                                                                         
+         59                                               Masonry          1/28/16  
+         61                                                                         
+         62                                                                         
+         65                                                                         
+         66       220000 Plumbing; 230000 HVAC; 260000 Electrical          1/28/16  
+         {\ldots}                                                  {\ldots}              {\ldots}  
+         34250                                                                      
+         34253                                                                      
+         34254                                                                      
+         34255                                                                      
+         34262                                                                      
+         34264                                                                      
+         34268                       Aluminum Windows, Electrical           1/7/11  
+         34269                                                                      
+         34270  Masonry; Misc. Metals; Waterproofing, Dampproo{\ldots}          1/27/11  
+         34278                                                                      
+         34280                                                                      
+         34281                                                                      
+         34287                                                                      
+         34290                                                                      
+         34291                                                                      
+         34295                   Electrical, Mechanical, Plumbing          1/12/11  
+         34299                                                                      
+         34300                               Elevators (\$175,000)          1/14/11  
+         34301                                                                      
+         34303                                                                      
+         34307                                                                      
+         34308                                                                      
+         34313                                                                      
+         34316                                                                      
+         34317                                                                      
+         34319                                                                      
+         34321                                                                      
+         34327                                                                      
+         34329  055000 Metal Fabrications; 088000 Glass \& Glaz{\ldots}          1/28/11  
+         34331                                                                      
+         
+         [14132 rows x 15 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}To find total estimated cost}
+         \PY{k}{def} \PY{n+nf}{get\PYZus{}value}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+             \PY{n}{count\PYZus{}dec} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{i} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{n}{res} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdq{}}
+             \PY{k}{while} \PY{n}{i}\PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{s}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                     \PY{n}{count\PYZus{}dec}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{k}{if} \PY{o+ow}{not} \PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{if} \PY{n}{count\PYZus{}dec} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                         \PY{k}{break}
+                     \PY{k}{if} \PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                         \PY{k}{break}
+                 \PY{n}{res}\PY{o}{+}\PY{o}{=} \PY{n}{s}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                 \PY{n}{i}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{k}{return} \PY{n}{res}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{k+kn}{from} \PY{n+nn}{ballpark} \PY{k}{import} \PY{n}{business}
+         
+         \PY{c+c1}{\PYZsh{} Find total unaccounted money of RFPs}
+         \PY{n}{estimated\PYZus{}cost} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{costs} \PY{o+ow}{in} \PY{n}{df\PYZus{}target\PYZus{}general}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{estimated\PYZus{}cost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dropna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{flag} \PY{o}{=} \PY{k+kc}{False}
+             \PY{k}{if} \PY{n}{costs}\PY{o}{.}\PY{n}{lstrip}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{k}{continue}
+             \PY{n}{itr} \PY{o}{=} \PY{l+m+mi}{0}
+             \PY{k}{while} \PY{n}{itr} \PY{o}{\PYZlt{}} \PY{n+nb}{len}\PY{p}{(}\PY{n}{costs}\PY{p}{)} \PY{o+ow}{and} \PY{o+ow}{not} \PY{n}{costs}\PY{p}{[}\PY{n}{itr}\PY{p}{]}\PY{o}{.}\PY{n}{isdigit}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{itr} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Million}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{costs}\PY{p}{[}\PY{n}{itr}\PY{p}{:}\PY{p}{]}\PY{p}{:}
+                 \PY{n}{flag} \PY{o}{=} \PY{k+kc}{True}
+             \PY{n}{costs} \PY{o}{=} \PY{n}{costs}\PY{p}{[}\PY{n}{itr}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+             \PY{k}{if} \PY{n}{costs}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{flag}\PY{p}{:}
+                     \PY{n}{cost} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{costs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{10}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{6}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{cost} \PY{o}{=} \PY{n+nb}{float}\PY{p}{(}\PY{n}{get\PYZus{}value}\PY{p}{(}\PY{n}{costs}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{estimated\PYZus{}cost} \PY{o}{+}\PY{o}{=} \PY{n}{cost}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Total unaccounted `estimated costs` of RFPs is: \PYZdl{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{business}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{estimated\PYZus{}cost}\PY{p}{)}\PY{p}{,} 
+                                                                             \PY{n}{precision}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{prefixes}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+m+mi}{9}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ Billion}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Total unaccounted `estimated costs` of RFPs is: \$23.24 Billion
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
