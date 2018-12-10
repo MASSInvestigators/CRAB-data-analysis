@@ -23,3 +23,11 @@ from this database.
 This data consists of information about all the minority and women-owned businesses in
 the state. We can compare this data with the contracts and their awards from the
 previous dataset to analyze the participation of minority and women-owned businesses.
+
+*In this report, we will primarily be working with the RFP and award datasets since we analyze the disparity in their numbers.*
+
+## Approach
+
+Our main challenge in this project was to deal with the dirty/empty and duplicate data in the given datasets. First, we basically produced cleaner datasets by removing all the duplicates and by not considering any RFPs where the project number was missing. We did this because we used the project numbers to match the RFPs and the awards from the two datasets.  
+
+We also calculated the number of awards each contractor was awarded. Something that we observed here was that there were many contractors with multiple similar names, which again happened because the data was not entered in a uniform manner. For example, N.E.L Corporation, MA 01949 and NEL Corporation, MA, were considered as separate contractors. We needed to employ a separate algorithm to tackle this problem.  
