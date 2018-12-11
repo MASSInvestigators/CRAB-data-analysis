@@ -87,4 +87,4 @@ be a daunting but a useful task to get the best possible analysis.
 
 ## Poster
 
-![Poster](Poster.pdf)
+![](Poster.PNG)
